@@ -1,0 +1,14 @@
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap
+}
+.container{
+    flex-direction: row;
+    flex-wrap: nowrap
+}
+li{
+    margin: 10px;
+}

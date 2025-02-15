@@ -1,61 +1,41 @@
-.customExpandButton {
-    float: right;
-    margin-top: 2px;
-    margin-left: 3px;
-}
-
-.expanded {
-    animation-name: toExpanded;
-    animation-duration: 1s;
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
-}
-
-.fa-arrow-right {
-    color: cornflowerblue;
-}
-
-.collapsed {
-    animation-name: toCollapsed;
-    animation-duration: 1s;
-    -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
-    transform: rotate(0deg);
-}
-
-.ag-header-group-cell-label {
+body {
+    background: #adadb1;
+  }
+  .title {
+    font-size: 18px;
+    margin: 0;
+  }
+  kendo-badge-container {
+    margin-right: 8px;
+  }
+  ul {
+    font-size: 14px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
     display: flex;
-    gap: 0.25rem;
-    overflow: hidden;
-}
-
-.customHeaderLabel {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.customHeaderMenuButton,
-.customHeaderLabel,
-.customSortDownLabel,
-.customSortUpLabel,
-.customSortRemoveLabel {
-    margin-top: 2px;
-    float: left;
-}
-
-.customSortDownLabel {
-    margin-left: 10px;
-}
-
-.customSortUpLabel {
-    margin-left: 1px;
-}
-
-.customSortRemoveLabel {
-    float: left;
-    font-size: 11px;
-}
-.btn-export{
-    display: flex;
-    flex-direction: row-reverse;
-    margin: 10px 5px;
-}
+  }
+  li {
+    margin: 0 9px;
+  }
+  li:hover {
+    cursor: pointer;
+    color: #d6002f;
+  }
+  .actions .k-button {
+    padding: 0;
+  }
+  .k-appbar-separator {
+    margin: 0 8px;
+  }
+  .link{
+    color: white;
+    text-decoration: none;
+  }
+  .link:hover{
+      cursor: pointer;
+      color: #d6002f;
+  }
+  .link.active{
+    color: yellow
+  }

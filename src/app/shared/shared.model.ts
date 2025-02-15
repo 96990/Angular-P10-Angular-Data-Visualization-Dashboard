@@ -1,6 +1,5 @@
-import { ColDef, ICellRendererParams, themeAlpine, ValueGetterParams } from "ag-grid-community";
-import { CustomHeaderGroup } from "./customheader-group/customheader-group.component";
-import { ReviewsRenderer } from "./sub-table/sub-table.component";
+import { IDateFilterParams, themeAlpine, themeQuartz, ValueFormatterParams, ValueGetterParams } from "ag-grid-community";
+import { SubarrayRenderer } from "./sub-array-renderer/sub-array-renderer.component";
 
 export interface IRow {
     availabilityStatus: string,
@@ -49,64 +48,91 @@ export type reviews = {
     rating: number,
     reviewerEmail: string,
     reviewerName: string,
+    [key:string]: string | number
 }
+export const filterParams: IDateFilterParams = {
+    comparator: (filterLocalDateAtMidnight: Date, cellValue: string) => {
+      const dateAsString = cellValue;
+      if (dateAsString == null) return -1;
+      const dateParts = dateAsString.split("/");
+      const cellDate = new Date(
+        Number(dateParts[2]),
+        Number(dateParts[1]) - 1,
+        Number(dateParts[0]),
+      );
+      if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+        return 0;
+      }
+      if (cellDate < filterLocalDateAtMidnight) {
+        return -1;
+      }
+      if (cellDate > filterLocalDateAtMidnight) {
+        return 1;
+      }
+      return 0;
+    },
+};
+
 export const colDefs = [
+    { field: "id", headerName: "ID", maxWidth: 60, filter: "agNumberColumnFilter", sortable: true},
     { field: "title", headerName: "Title"},
-    { field: "brand", headerName: "Brand"},
-    { field: "category",  headerName: "Catagory"},
-    { field: "availabilityStatus", headerName: "Availability Status"},
-    { field: "price", headerName: "Price"},
-    { field: "stock", headerName: "Stock"},
-    { field: "images", headerName: "Images"},
+    { field: "brand", headerName: "Brand", filter: "agSetColumnFilter",sortable: true },
+    { field: "category",  headerName: "Catagory", filter: "agSetColumnFilter",sortable: true},
+    { field: "availabilityStatus", headerName: "Availability Status", filter: "agSetColumnFilter"},
+    { field: "price", headerName: "Price", filter: "agNumberColumnFilter"},
+    { field: "stock", headerName: "Stock", filter: "agSetColumnFilter" },
+    { field: "images", headerName: "Images", filter: false},
     { field: "description", headerName: "Description"},
-    { field: "discountPercentage",  headerName: "Discount Percentage"},
+    { field: "discountPercentage",  headerName: "Discount Percentage", filter: "agSetColumnFilter"},
     { headerName: "Dimensions", children: [
-            { headerName: 'depth', valueGetter: (params: ValueGetterParams) =>params.data.dimensions?.depth || ''},
-            { headerName: 'height', valueGetter: (params: ValueGetterParams) =>params?.data?.dimensions?.height || ''},
-            { headerName: 'width', valueGetter: (params: ValueGetterParams) =>params?.data?.dimensions?.width || ''}
+            { headerName: 'depth', valueGetter: (params: ValueGetterParams) =>params.data.dimensions?.depth || '',filter: "agNumberColumnFilter"},
+            { headerName: 'height', valueGetter: (params: ValueGetterParams) =>params?.data?.dimensions?.height || '', filter: "agNumberColumnFilter"},
+            { headerName: 'width', valueGetter: (params: ValueGetterParams) =>params?.data?.dimensions?.width || '', filter: "agNumberColumnFilter"}
         ]
     },
-    { field: "minimumOrderQuantity", headerName: "Minimum Order Quantity"},
-    { field: "rating", headerName: "Rating"},
+    { field: "minimumOrderQuantity", headerName: "Minimum Order Quantity", filter: "agNumberColumnFilter"},
+    { field: "rating", headerName: "Rating", filter: "agNumberColumnFilter"},
     { field: "returnPolicy", headerName: "Return Policy"},
     {
         field: "reviews",
         headerName: "Reviews",
-        cellRenderer: ReviewsRenderer,
+        cellRenderer: SubarrayRenderer,
         cellRendererParams: {
-            columnKeys: ["comment", "date", "rating", "reveiwerName", "reviewerEmail"]
+            columnKeys: ["rating", "reviewerName", "comment", "date", "reviewerEmail"]
         }
     },
     { field: "sku", headerName: "SKU"},
-    { field: "tags", headerName: "Tags"},
+    { field: "tags", headerName: "Tags", filter: "agNumberColumnFilter"},
     { field: "thumbnail", headerName: "Thumbnail",},
     { field: "warrantyInformation", headerName: "Warranty Information",},
-    { field: "weight", headerName: "Weight"},
+    { field: "weight", headerName: "Weight", filter: "agNumberColumnFilter"},
     { headerName: "Meta", children: [
-        { headerName: 'Barcode', valueGetter: (params: ValueGetterParams) =>params.data.meta?.barcode || ''},
-        { headerName: 'CreateAt', valueGetter: (params: ValueGetterParams) =>params.data.meta?.createdAt || ''},
+        { headerName: 'Barcode', valueGetter: (params: ValueGetterParams) =>params.data.meta?.barcode || '', filter: "agNumberColumnFilter"},
+        { headerName: 'CreateAt', valueGetter: (params: ValueGetterParams) =>params.data.meta?.createdAt || '', filter: "agDateColumnFilter",filterParams: filterParams},
         { headerName: 'QR Code', valueGetter: (params: ValueGetterParams) =>params.data.meta?.qrCode || ''},
-        { headerName: 'Updated At', valueGetter: (params: ValueGetterParams) =>params.data.meta?.updatedAt || ''},
+        { headerName: 'Updated At', valueGetter: (params: ValueGetterParams) =>params.data.meta?.updatedAt || '', filter: "agDateColumnFilter",filterParams: filterParams,
+          // valueFormatter: (params: ValueFormatterParams) => {
+          //   return params.value == null
+          //       ? '' : `${params.data.meta?.updatedAt.getDate()}/${params.data.meta?.updatedAt.getMonth() + 1}/${params.data.meta?.updatedAt.getFullYear}`
+          //   },
+        },
     ] },
   ];
 
-export const myTheme = themeAlpine.withParams({
+export const AlphineTheme = themeAlpine.withParams({
     spacing: 2,
     foregroundColor: 'rgb(14, 68, 145)',
     backgroundColor: 'rgb(241, 247, 255)',
     headerBackgroundColor: 'rgb(228, 237, 250)',
     rowHoverColor: 'rgb(216, 226, 255)',
 });
+export const QuatzTheme = themeQuartz.withParams({
+    spacing: 2,
+    backgroundColor: 'rgb(249, 245, 227)',
+    foregroundColor: 'rgb(132, 46, 46)',
+    headerTextColor: 'rgb(238, 245, 172)',
+    headerBackgroundColor: 'rgb(231, 65, 65)',
+    oddRowBackgroundColor: 'rgb(0, 0, 0, 0.03)',
+    headerColumnResizeHandleColor: 'rgb(161, 48, 48)',
+});
 
-// function getNestedValue(key: keyof reviews) {
-//     return (params: ICellRendererParams) => {
-//         console.log("ddd",params.data);
-//       if (!params.data.reviews || !Array.isArray(params.data) || params.data.length === 0) {
-//         return "No reviews";  // If no reviews, display a default message.
-//       }
-//       // Get the reviews from params
-//       const data: IRow[] = params.data || [];
-//       // Map through reviews and extract the requested key.
-//       return data.reviews.map((review) => review[key] || "N/A").join(", ");
-//     };
-//   }

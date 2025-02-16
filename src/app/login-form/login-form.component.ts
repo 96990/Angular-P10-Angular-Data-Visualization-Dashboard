@@ -2,12 +2,12 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component, ElementRef, viewChild, ViewContainerRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { ButtonsModule } from "@progress/kendo-angular-buttons";
+import { ButtonModule, ButtonsModule } from "@progress/kendo-angular-buttons";
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [NgFor, FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [NgFor, FormsModule, CommonModule, ReactiveFormsModule, ButtonModule],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css'
 })

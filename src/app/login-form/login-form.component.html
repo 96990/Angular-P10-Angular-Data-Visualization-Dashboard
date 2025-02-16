@@ -1,37 +1,38 @@
-<div class="login">
+<div class="container">
     <form  [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         <ul>
             <li>
-                <label for="firsName">firsName</label>
+                <label for="firsName">firsName:</label>
                 <input type="text" name="firsName" [formControl]="signUpForm.controls.firstName">
             </li>
             <li>
-                <label for="lastName">LastName</label>
+                <label for="lastName">LastName:</label>
                 <input type="text" name="lastName" [formControl]="signUpForm.controls.lastName">
             </li>
             <li>
-                <label for="userName">UserName</label>
+                <label for="userName">UserName:</label>
                 <input type="text" name="userName" [formControl]="signUpForm.controls.userName">
             </li>
             <li>
-                <label for="password">Password</label>
+                <label for="password">Password:</label>
                 <input type="text" name="password" [formControl]="signUpForm.controls.password">
             </li>
             <li>
-                <label for="confirmPassword">Confirm Password</label>
+                <label for="confirmPassword">Confirm Password:</label>
                 <input type="text" name="confirmPassword" [formControl]="signUpForm.controls.confirmPassword">
             </li>
             <li>
-                <label for="email">Email</label>
+                <label for="email">Email:</label>
                 <input type="text" name="email" [formControl]="signUpForm.controls.email">
             </li>
             <li>
-                <label for="roles">Roles</label>
+                <label for="roles">Roles:</label>
                 <input type="text" name="roles" formArrayName="roles">
             </li>
         </ul>
+        <button  kendoButton themeColor="info" type="button" (click)="onSubmit()">Submit</button>
         </form>
-                <div class="container">
+                <!-- <div class="container">
                     <label for="task">Enter Roles</label>
                     <input type="text" name="task" [(ngModel)]="task" />
                     <button type="button" (click)="onAddRoles()">Add</button>
@@ -44,18 +45,5 @@
                             <button type="button" (click)="onDelete(i)">Delete</button>
                            </ol>
                     </ul>
-                </div>
-            
-            
-           
-            
-            
-            
-            
-        <button  kendoButton themeColor="primary" type="button" (click)="onSubmit()">Submit</button>
-  
-
-
-
-    
+                </div> -->
 </div>

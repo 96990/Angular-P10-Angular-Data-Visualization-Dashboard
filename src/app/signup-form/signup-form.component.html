@@ -1,29 +1,30 @@
 <div class="container">
-    <form  [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <form  class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <h3 class="heading">Sign UP</h3>
         <ul>
             <li>
-                <label for="firsName">firsName:</label>
-                <input type="text" name="firsName" [formControl]="signUpForm.controls.firstName">
+                <label for="firsName">FirstName:</label>
+                <input type="text" name="firstName" formControlName="firstName">
             </li>
             <li>
                 <label for="lastName">LastName:</label>
-                <input type="text" name="lastName" [formControl]="signUpForm.controls.lastName">
+                <input type="text" name="lastName" formControlName="lastName">
             </li>
             <li>
                 <label for="userName">UserName:</label>
-                <input type="text" name="userName" [formControl]="signUpForm.controls.userName">
+                <input type="text" name="userName" formControlName="userName">
             </li>
             <li>
                 <label for="password">Password:</label>
-                <input type="text" name="password" [formControl]="signUpForm.controls.password">
+                <input type="password" name="password" formControlName="password">
             </li>
             <li>
                 <label for="confirmPassword">Confirm Password:</label>
-                <input type="text" name="confirmPassword" [formControl]="signUpForm.controls.confirmPassword">
+                <input type="password" name="confirmPassword" formControlName="confirmPassword">
             </li>
             <li>
                 <label for="email">Email:</label>
-                <input type="text" name="email" [formControl]="signUpForm.controls.email">
+                <input type="text" name="email" formControlName="email">
             </li>
             <li>
                 <label for="roles">Roles:</label>

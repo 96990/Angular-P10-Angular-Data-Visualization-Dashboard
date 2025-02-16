@@ -5,13 +5,13 @@ import { BehaviorSubject } from 'rxjs';
 import { ButtonModule, ButtonsModule } from "@progress/kendo-angular-buttons";
 
 @Component({
-  selector: 'app-login-form',
+  selector: 'app-signup-form',
   standalone: true,
   imports: [NgFor, FormsModule, CommonModule, ReactiveFormsModule, ButtonModule],
-  templateUrl: './login-form.component.html',
-  styleUrl: './login-form.component.css'
+  templateUrl: './signup-form.component.html',
+  styleUrl: './signup-form.component.css'
 })
-export class LoginFormComponent {
+export class SignupFormComponent {
   task: string ='';
   tasks = new BehaviorSubject<string[]>([]);
   todoList$ = this.tasks.asObservable();
@@ -29,6 +29,9 @@ export class LoginFormComponent {
 
   onSubmit(){
    console.log(this.signUpForm.value);
+   const user = JSON.stringify(this.signUpForm.value);
+   localStorage.setItem("user",user);
+   this.signUpForm.reset();
   }
   onAddRoles(){
     const updatedList = [...this.tasks.value, this.task];

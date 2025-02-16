@@ -1,0 +1,35 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap
+}
+.items{
+    flex-direction: row;
+    flex-wrap: nowrap
+}
+.form{
+    background-color: bisque;
+    box-shadow: aqua;
+    border-radius: .5rem;
+    margin: 1rem 1rem;
+}
+.heading{
+    margin: .5rem;
+
+}
+li{
+    margin: 10px;
+    list-style-type: none;
+}
+input{
+    margin: 0 2rem 0 2rem;
+    float: right;
+    border-radius: .2rem;
+    border: 1px bisque;
+}
+button{
+    margin: .5rem .5rem;
+    float: right;
+}

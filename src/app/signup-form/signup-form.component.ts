@@ -1,13 +1,14 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, ElementRef, viewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild, viewChild, ViewContainerRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { ButtonModule, ButtonsModule } from "@progress/kendo-angular-buttons";
+import { NotificationComponent } from '../shared/notification/notification.component';
 
 @Component({
   selector: 'app-signup-form',
   standalone: true,
-  imports: [NgFor, FormsModule, CommonModule, ReactiveFormsModule, ButtonModule],
+  imports: [NgFor, FormsModule, CommonModule, ReactiveFormsModule, ButtonModule, NotificationComponent],
   templateUrl: './signup-form.component.html',
   styleUrl: './signup-form.component.css'
 })
@@ -15,6 +16,8 @@ export class SignupFormComponent {
   task: string ='';
   tasks = new BehaviorSubject<string[]>([]);
   todoList$ = this.tasks.asObservable();
+  @ViewChild('notification') notify!: NotificationComponent;
+
   signUpForm = new FormGroup({
     firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
     lastName: new FormControl('', [Validators.required,Validators.minLength(2)]),
@@ -31,6 +34,7 @@ export class SignupFormComponent {
    console.log(this.signUpForm.value);
    const user = JSON.stringify(this.signUpForm.value);
    localStorage.setItem("user",user);
+   this.notify.showNotification('signup');
    this.signUpForm.reset();
   }
   onAddRoles(){

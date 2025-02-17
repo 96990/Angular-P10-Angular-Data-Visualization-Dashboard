@@ -1,6 +1,7 @@
 <div class="container">
     <form  class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         <h3 class="heading">Sign UP</h3>
+        <app-notification #notification [horizontal]="'right'" [vertical]="'top'"></app-notification>
         <ul>
             <li>
                 <label for="firsName">FirstName:</label>

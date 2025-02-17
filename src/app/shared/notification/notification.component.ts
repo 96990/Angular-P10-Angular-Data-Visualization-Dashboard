@@ -36,6 +36,10 @@ export class NotificationComponent {
         this.state.content = "Your data has been saved.";
         this.state.type = { style: "success", icon: true };
         break;
+      case "signup":
+        this.state.content = "You have successfully signed up";
+        this.state.type = { style: "success", icon: true };
+        break;
       case "error":
         this.state.content = "Oops, something went wrong...";
         this.state.type = { style: "error", icon: true };

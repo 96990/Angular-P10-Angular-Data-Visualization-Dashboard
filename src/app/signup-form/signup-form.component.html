@@ -29,7 +29,19 @@
             </li>
             <li>
                 <label for="roles">Roles:</label>
-                <input type="text" name="roles" formArrayName="roles">
+                <div formArrayName="roles">
+                    @for(role of rolesArray; track role.index){
+                        <div>
+                            <input type="text" name="roles" [formControlName]="role.index" placeholder="Enter the roles you prefer.">
+                            @if(role.control.value){
+                                <p>{{role.control.value}}</p>
+                                <button  kendoButton themeColor="light" type="button" (click)="removeItem(role.index)">Remove</button>
+                            }
+                            
+                        </div>
+                    }
+                </div>
+                <button  kendoButton themeColor="info" type="button" (click)="addItem()">Add role</button>
             </li>
         </ul>
         <button  kendoButton themeColor="info" type="button" (click)="onSubmit()">Submit</button>

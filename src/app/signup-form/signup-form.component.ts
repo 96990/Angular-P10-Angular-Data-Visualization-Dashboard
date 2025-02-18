@@ -4,7 +4,6 @@ import { FormArray, FormControl, FormGroup, FormsModule, NgModel, ReactiveFormsM
 import { BehaviorSubject } from 'rxjs';
 import { ButtonModule, ButtonsModule } from "@progress/kendo-angular-buttons";
 import { NotificationComponent } from '../shared/notification/notification.component';
-
 @Component({
   selector: 'app-signup-form',
   standalone: true,
@@ -19,16 +18,30 @@ export class SignupFormComponent {
   @ViewChild('notification') notify!: NotificationComponent;
 
   signUpForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    lastName: new FormControl('', [Validators.required,Validators.minLength(2)]),
-    userName: new FormControl('', [Validators.required,Validators.minLength(2)]),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    lastName: new FormControl('', [Validators.required,Validators.minLength(3)]),
+    userName: new FormControl('', [Validators.required,Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required,Validators.minLength(2)]),
-    confirmPassword: new FormControl('', [Validators.required,Validators.minLength(2)]),
-    roles: new FormArray([
-      new FormControl()
-    ]),
+    password: new FormControl('', [Validators.required,Validators.minLength(3)]),
+    confirmPassword: new FormControl('', [Validators.required,Validators.minLength(3)]),
+    roles: new FormArray([ new FormControl('')]),
   });
+
+  get roles(): FormArray{
+    return this.signUpForm.get('roles') as FormArray;
+  }
+
+  get rolesArray() {
+    return this.roles.controls.map((control, index) => ({control, index}));
+  }
+
+  addItem(){
+    this.roles.push(new FormControl(''));
+  }
+
+  removeItem(index: number){
+    this.roles.removeAt(index);
+  }
 
   onSubmit(){
    console.log(this.signUpForm.value);
